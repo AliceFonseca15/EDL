@@ -12,6 +12,9 @@ public class PilhaRubroNegra{
         t_preto = capacidade;
         array = new Object[capacidade];
     }
+    public int get_capacidade(){
+        return capacidade;
+    }
     public int vermelho_size(){
         return t_vermelho + 1;
     }
@@ -92,25 +95,29 @@ public class PilhaRubroNegra{
         }
 
         int aux = t_preto;
+        Object valor_retorno = array[aux];
         t_preto += 1;
         int soma_pilhas = vermelho_size() + preto_size();
         if (soma_pilhas <= capacidade/3){
             redutor();
         }
-        return array[aux];
+        return valor_retorno;
     }
     
     public void redutor(){
+            Object[] array_antigo = array;
             int nova_capacidade = capacidade / 2;
+            int capacidade_antiga = capacidade;
+            int antigo_tpreto = t_preto;
             Object[] novo_array = new Object[nova_capacidade];
             for (int i=0;i <= t_vermelho;i++){
-                novo_array[i] = array[i];  // copia a parte vermelhha
+                novo_array[i] = array_antigo[i];  // copia a parte vermelhha
             }
-            int qtd_pretos = capacidade - t_preto;
+            int qtd_pretos = capacidade_antiga - antigo_tpreto;
             int novo_tpreto = nova_capacidade - qtd_pretos;
             
             for (int f = 0; f < qtd_pretos;f++){
-                novo_array[novo_tpreto + f] = array[t_preto + f]; // copia a parte preta
+                novo_array[novo_tpreto + f] = array_antigo[antigo_tpreto + f]; // copia a parte preta
             }
             array = novo_array;            
             t_preto = novo_tpreto;

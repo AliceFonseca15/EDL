@@ -63,9 +63,10 @@ public class PilhaRubroNegra{
             }
             int qtd_pretos = preto_size();
             int novo_tpreto = nova_capacidade - qtd_pretos;
-            
+            int contador = 0;
             for (int f = 0; f < qtd_pretos;f++){
-                novo_array[novo_tpreto + f] = array[t_preto + f]; 
+                novo_array[novo_tpreto + contador] = array[t_preto + contador];
+                contador += 1;
             }
             array = novo_array;            
             t_preto = novo_tpreto;
@@ -107,11 +108,12 @@ public class PilhaRubroNegra{
             }
             int qtd_pretos = preto_size();
             int novo_tpreto = nova_capacidade - qtd_pretos;
-            
+            int contador = 0;
             for (int f = 0; f < qtd_pretos;f++){
-                novo_array[novo_tpreto + f] = array[t_preto + f]; 
+                novo_array[novo_tpreto + contador] = array[t_preto + contador];
+                contador += 1;
             }
-            array = novo_array;            
+            array = novo_array;        
             t_preto = novo_tpreto;
             capacidade = nova_capacidade;
     }

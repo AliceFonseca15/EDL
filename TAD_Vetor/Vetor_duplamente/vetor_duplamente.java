@@ -1,5 +1,5 @@
 public class vetor_duplamente {
-        No head; // No sentinela 
+        No head; 
         No tail;
         int tamanho;
     public vetor_duplamente(){

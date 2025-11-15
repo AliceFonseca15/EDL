@@ -5,154 +5,130 @@ public class vetor_duplamente {
     public vetor_duplamente(){
         head = null;
         tail = null;
+        tamanho = -1;
     }
+
     // Variaveis universais
-    int contador; 
+    int contador = 0; 
     Object aux;
+
+
     public int size(){
-        return tamanho;
+        return tamanho + 1;
     }
     public boolean isEmpty(){
-        if (head.get_Next() == null){
+        if (tamanho == -1){
             return true;
         }else{
             return false;
         }
     }
+    
     public Object elemAtRank(int n){
-        if (n < 0 || n >= tamanho){
-            throw new RuntimeException("O tamanho do Vetor está fora dos limites");
-        }
-        if (isEmpty() == true){
-            throw new RuntimeException("O Vetor está vazio");       
-        }
-
-        No atual = head.get_Next();
-        if (n < tamanho / 2){
-            while (contador != n){
-                atual = atual.get_Next();
-                contador += 1;
-            }
-            aux = atual.get_elemento();
+        No atual = head;
+        if (n < 0 || n > size()){
+            throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
         }else{
-            atual = tail.get_prev();
-            contador = tamanho - 1;
-            while (contador > n){
-                atual = atual.get_prev();
-                contador -= 1;
-            }
-            aux = atual.get_elemento();
-        }
-        contador = 0;      
-        return aux;
-    }
-
-    public Object replaceAtRank(int n, Object o){
-        if (n < 0 || n >= tamanho){
-            throw new RuntimeException("O tamanho do Vetor está fora dos limites");
-        }
-        No atual = head.get_Next();
-        if (n < tamanho / 2){
-            while (contador != n){
-                atual = atual.get_Next();
-                contador += 1;
-            }
-            aux = atual.get_elemento();
-            atual.set_elemento(o);
-        }else{
-            atual = tail.get_prev();
-            contador = tamanho - 1;
-            while (contador > n){
-                atual = atual.get_prev();
-                contador -= 1;
-            }
-            aux = atual.get_elemento();
-            atual.set_elemento(o);
-        }
-        contador = 0; 
-        return aux;
-    }
-    public void insertAtRank(int n, Object o){
-        if (n < 0 || n >= tamanho){
-            throw new RuntimeException("O tamanho do Vetor está fora dos limites");
-        }
-        if (isEmpty() == true){
-            throw new RuntimeException("O Vetor está vazio"); // caso vazio
-        }else{
-            if (head.get_Next() == tail.get_prev()){  // caso um elemento
-                No novo_elemento = new No(o);
-                novo_elemento.set_prev(head);
-                novo_elemento.set_Next(tail);
-                head.set_Next(novo_elemento);
-                tail.set_prev(novo_elemento);
+           if (isEmpty() ==  true){
+            throw new RuntimeException("O Vetor está vazio");
             }else{
-                No novo_elemento = new No(o);
-                No atual = head.get_Next();
-                if (n < tamanho / 2){
-                    while (contador != n){
-                        atual = atual.get_Next();
-                        contador += 1;
-                    }
-                    novo_elemento.set_Next(atual);
-                    novo_elemento.set_prev(atual.get_prev());
-                    atual.get_prev().set_next(novo_elemento);
-                    atual.set_prev(novo_elemento);
-                                        
+                if (size() == 1){ // se a lista tiver so um No
+                    aux = head.get_elemento();
                 }else{
-                    atual = tail.get_prev();
-                    contador = tamanho - 1;
-                    while (contador > n){
-                        atual = atual.get_prev();
-                        contador -= 1;
+                    while (contador != n){ // percorre a lista em busca do rank
+                        atual = atual.get_Next();
+                        contador++;
                     }
-                    novo_elemento.set_Next(atual);
-                    novo_elemento.set_prev(atual.get_prev());
-                    atual.get_prev().set_next(novo_elemento);
-                    atual.set_prev(novo_elemento);
-
+                    aux =  atual.get_elemento();
                 }
                 contador = 0;
-                tamanho++;
+                return aux;
             }
+        }
+    }
+    public Object replaceAtRank(int n, Object o){ 
+        if (n < 0 || n > size()){
+            throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
+        }else{
+           if (isEmpty() ==  true){
+            throw new RuntimeException("O Vetor está vazio");
+            }else{
+                if (size() == 1){ // se a lista tiver um No
+                    aux = head.get_elemento();
+                    head.set_elemento(o);
+                }else{ // Percorre a lista em busca do rank
+                    No atual = head;
+                    while (contador != n){
+                        atual = atual.get_Next();
+                        contador++;
+                    }
+                    aux = atual.get_elemento();
+                    atual.set_elemento(o);
+                }
+                return aux;
+            }
+        }
+    }
+    public void insertAtRank(int n, Object o){
+        No novo = new No();
+        novo.set_elemento(o);
+        if (n < 0 || n > size()){
+            throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
+        }else{
+            if (isEmpty() ==  true){ // se tiver vazia
+                head = novo;
+                tail = novo;
+            }else{
+                if (n == size()){ // se o rank for o ultimo do vetor
+                    novo.set_prev(tail);
+                    tail.set_Next(novo);
+                    tail = novo;
+                }else{ // todo o resto
+                    No atual = head;
+                    while (contador != n){
+                        atual = atual.get_Next();
+                        contador++;
+                    }
+                    novo.set_Next(atual); 
+                    novo.set_prev(atual.get_prev());
+                    atual.get_prev().set_Next(novo);
+                    atual.set_prev(novo);
+                    contador = 0; 
+                    }           
+            }
+            tamanho++;
         }
     }
     public Object removeAtRank(int n){
-        if (n < 0 || n >= tamanho){
-            throw new RuntimeException("O tamanho do Vetor está fora dos limites");
-        }
-        if (isEmpty() ==  true){
-            throw new RuntimeException("O Vetor está vazio"); 
-        }
-        if (head.get_Next() == tail.get_prev()){  // caso um elemento
-                aux = head.get_Next().get_elemento();
-                head.set_Next(null);
-                tail.set_prev(null);
-                return aux;
+        if (n < 0 || n > size()){
+            throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
         }else{
-                No atual = head.get_Next();
-                if (n < tamanho / 2){
-                    while (contador != n){
-                        atual = atual.get_Next();
-                        contador += 1;
+            if (isEmpty() == true){
+                throw new RuntimeException("O Vetor está vazio");
+            }else{
+                if (size() == 1){ // se o elemento a remover for o primeiro
+                    aux = head.get_elemento();
+                    head = null;
+                    tail = null;
+                }else{ // se o elemento a remover for o ultimo
+                    if (n == tamanho){
+                        aux = tail.get_elemento();
+                        tail.get_prev().set_Next(null);
+                        tail = tail.get_prev();                       
+                    }else{ // todo o resto
+                        No atual = head;
+                        while (contador != n){
+                            atual = atual.get_Next();
+                            contador++;
+                        }
+                        aux = atual.get_elemento();
+                        atual.get_prev().set_Next(atual.get_Next());
+                        atual.get_Next().set_prev(atual.get_prev());
                     }
-                    aux = atual.get_elemento();
-                    atual.get_prev().set_Next(atual.get_Next());
-                    atual.get_next().set_prev(atual.get_prev());
-                                        
-                }else{
-                    atual = tail.get_prev();
-                    contador = tamanho - 1;
-                    while (contador > n){
-                        atual = atual.get_prev();
-                        contador -= 1;
-                    }
-                    aux = atual.get_elemento();
-                    atual.get_prev().set_Next(atual.get_Next());
-                    atual.get_next().set_prev(atual.get_prev());
                 }
-                contador = 0;
                 tamanho--;
                 return aux;
+            }
         }
     }
 }

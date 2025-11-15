@@ -25,14 +25,14 @@ public class vetor_array {
         }
     }
     public Object elemAtRank(int n){
-        if (n < 0 || n > tamanho - 1){
+        if (n < 0 || n > capacidade){
             throw new RuntimeException("O tamanho está fora dos limites do array!");
         }else{
-            return array[n]; 
+            return array[n];
         }
     }
     public Object replaceAtRank(int n, Object o){
-        if (n < 0 || n > tamanho - 1){
+        if (n < 0 || n > capacidade){
             throw new RuntimeException("O tamanho está fora dos limites do array!");
 
         }else{
@@ -45,7 +45,7 @@ public class vetor_array {
         if (tamanho == capacidade){
             throw new RuntimeException("O array está cheio!");
         }else{
-            if (n < 0 || n > tamanho - 1){
+            if (n < 0 || n > capacidade){
                 throw new RuntimeException("O tamanho está fora dos limites do array!");
         }else{
                 Object[] novo_array = new Object[capacidade];
@@ -68,7 +68,7 @@ public class vetor_array {
         if (isEmpty() == true ){
             throw new RuntimeException("O array está vazio, insira um elemento!");
         }else{
-            if (n < 0 || n > tamanho - 1){
+            if (n < 0 || n > capacidade){
                 throw new RuntimeException("O tamanho está fora dos limites do array!");
             }else{
                 aux = array[n];

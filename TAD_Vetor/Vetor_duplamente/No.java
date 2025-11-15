@@ -2,8 +2,8 @@ public class No{
     private Object elemento;
     private No next;
     private No prev;
-    public No(Object dado){
-        elemento = dado;
+    public No(){
+        elemento = null;
         next = null;
         prev = null;
     }
@@ -25,5 +25,4 @@ public class No{
     public void set_prev(No n){
         prev = n;      
     }
-
 }

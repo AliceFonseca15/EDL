@@ -73,7 +73,7 @@ public class vetor_array {
             }else{
                 aux = array[n];
                 Object[] novo_array = new Object[capacidade];
-                for (int i = 0; i < n;i++){
+                for (int i = 0; i < n;i++){ 
                     novo_array[i] = array[i];
                 }
 

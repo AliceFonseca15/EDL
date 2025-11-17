@@ -64,6 +64,7 @@ public class vetor_duplamente {
                     }
                     aux = atual.get_elemento();
                     atual.set_elemento(o);
+                    contador = 0;
                 }
                 return aux;
             }
@@ -124,6 +125,7 @@ public class vetor_duplamente {
                         aux = atual.get_elemento();
                         atual.get_prev().set_Next(atual.get_Next());
                         atual.get_Next().set_prev(atual.get_prev());
+                        contador = 0;
                     }
                 }
                 tamanho--;

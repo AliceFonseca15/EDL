@@ -17,9 +17,10 @@ class teste_vetorDuplamente {
         System.out.println("Mostrando elemento na posiçao 1");
         System.out.println(meuVetor.elemAtRank(1));
         System.out.println("Teste do removeAtRank na posicao 1");  // removeAtRank
-        System.out.println(meuVetor.removeAtRank(1)); 
-        System.out.println(meuVetor.elemAtRank(1));
+        System.out.println("Removeu:" +  meuVetor.removeAtRank(1)); 
+        System.out.println("Posição 0:" + meuVetor.elemAtRank(0));
         System.out.println("Tamanho:" + meuVetor.size());
 
+        
     }  
 }

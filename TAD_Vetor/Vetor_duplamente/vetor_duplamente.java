@@ -3,16 +3,22 @@ public class vetor_duplamente {
         No tail;
         int tamanho;
     public vetor_duplamente(){
-        head = null;
-        tail = null;
+        head = new No();
+        tail = new No();
+        head.set_Next(tail);
+        tail.set_prev(head);
         tamanho = -1;
     }
 
     // Variaveis universais
-    int contador = 0; 
     Object aux;
 
-
+    public No percorre_vetor(No atual, int n){
+        for (int i = 0; i < n; i++){
+            atual = atual.get_Next();
+        }
+        return atual;
+    }
     public int size(){
         return tamanho + 1;
     }
@@ -23,25 +29,20 @@ public class vetor_duplamente {
             return false;
         }
     }
-    
     public Object elemAtRank(int n){
-        No atual = head;
+        No atual = head.get_Next();
         if (n < 0 || n > size()){
             throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
         }else{
-           if (isEmpty() ==  true){
+           if (isEmpty()){
             throw new RuntimeException("O Vetor está vazio");
             }else{
                 if (size() == 1){ // se a lista tiver so um No
-                    aux = head.get_elemento();
+                    aux = head.get_Next().get_elemento();
                 }else{
-                    while (contador != n){ // percorre a lista em busca do rank
-                        atual = atual.get_Next();
-                        contador++;
-                    }
+                    atual = percorre_vetor(atual, n);
                     aux =  atual.get_elemento();
                 }
-                contador = 0;
                 return aux;
             }
         }
@@ -50,21 +51,17 @@ public class vetor_duplamente {
         if (n < 0 || n > size()){
             throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
         }else{
-           if (isEmpty() ==  true){
+           if (isEmpty()){
             throw new RuntimeException("O Vetor está vazio");
             }else{
                 if (size() == 1){ // se a lista tiver um No
-                    aux = head.get_elemento();
-                    head.set_elemento(o);
+                    aux = head.get_Next().get_elemento();
+                    head.get_Next().set_elemento(o);
                 }else{ // Percorre a lista em busca do rank
-                    No atual = head;
-                    while (contador != n){
-                        atual = atual.get_Next();
-                        contador++;
-                    }
-                    aux = atual.get_elemento();
+                    No atual = head.get_Next();
+                    atual = percorre_vetor(atual, n);
+                    aux = atual.get_elemento(); 
                     atual.set_elemento(o);
-                    contador = 0;
                 }
                 return aux;
             }
@@ -73,64 +70,47 @@ public class vetor_duplamente {
     public void insertAtRank(int n, Object o){
         No novo = new No();
         novo.set_elemento(o);
-        if (n < 0 || n > size()){
-            throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
-        }else{
-            if (isEmpty() ==  true){ // se tiver vazia
-                head = novo;
-                tail = novo;
+        if (isEmpty()){ // se tiver vazia
+                head.set_Next(novo);
+                tail.set_prev(novo);
+
+                novo.set_prev(head);
+                novo.set_Next(tail);
+                tamanho++;
+        
+        }else{  
+            if (n < 0 || n > size() + 1){
+                throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
             }else{
-                if (n == size()){ // se o rank for o ultimo do vetor
-                    novo.set_prev(tail);
-                    tail.set_Next(novo);
-                    tail = novo;
-                }else{ // todo o resto
-                    No atual = head;
-                    while (contador != n){
-                        atual = atual.get_Next();
-                        contador++;
-                    }
-                    novo.set_Next(atual); 
-                    novo.set_prev(atual.get_prev());
-                    atual.get_prev().set_Next(novo);
-                    atual.set_prev(novo);
-                    contador = 0; 
-                    }           
+                No atual = head.get_Next();                 
+                atual = percorre_vetor(atual, n);
+                novo.set_Next(atual); 
+                novo.set_prev(atual.get_prev());
+                atual.get_prev().set_Next(novo);
+                atual.set_prev(novo);
+                
+                tamanho++;
             }
-            tamanho++;
+            
         }
     }
     public Object removeAtRank(int n){
         if (n < 0 || n > size()){
             throw new IndexOutOfBoundsException("O tamanho do Vetor está fora dos limites");
         }else{
-            if (isEmpty() == true){
+            if (isEmpty()){
                 throw new RuntimeException("O Vetor está vazio");
             }else{
-                if (size() == 1){ // se o elemento a remover for o primeiro
-                    aux = head.get_elemento();
-                    head = null;
-                    tail = null;
-                }else{ // se o elemento a remover for o ultimo
-                    if (n == tamanho){
-                        aux = tail.get_elemento();
-                        tail.get_prev().set_Next(null);
-                        tail = tail.get_prev();                       
-                    }else{ // todo o resto
-                        No atual = head;
-                        while (contador != n){
-                            atual = atual.get_Next();
-                            contador++;
-                        }
-                        aux = atual.get_elemento();
-                        atual.get_prev().set_Next(atual.get_Next());
-                        atual.get_Next().set_prev(atual.get_prev());
-                        contador = 0;
-                    }
-                }
-                tamanho--;
-                return aux;
-            }
+                    No atual = head.get_Next();
+                    atual = percorre_vetor(atual, n);
+                    aux = atual.get_elemento();
+                    atual.get_prev().set_Next(atual.get_Next());
+                    atual.get_Next().set_prev(atual.get_prev()); 
+                    tamanho--;  
+                    return aux;                
+                }   
         }
     }
 }
+    
+

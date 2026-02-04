@@ -11,4 +11,4 @@ Implementações de Tipos de Dados Abstratos aprendidos durante a disciplina
 | Lista |Array e Lista Duplamente encadeada|Coleção ordenada de elementos.|
 | Vetor |Array e Lista Duplamente encadeada|Acesso por posição(rank)|
 | Sequência |Lista Duplamente encadeada|União de Lista/Vetor.|
-| Árvore Binária de Pesquisa (ABP) |Lista Duplamente encadeada|Estrutura hierárquica(Pai,filhoEsquedo e FilhoDireito)|
+| Árvore Binária de Pesquisa (ABP) |Estrutura Dinâmica de Dados baseada em Nós Autoreferenciados|Estrutura hierárquica(Pai,filhoEsquedo e FilhoDireito)|

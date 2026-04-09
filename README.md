@@ -1,4 +1,4 @@
-# EDL
+# Estrutura de Dados Lineares
 Repositório da disciplina de Estrutura de dados lineares
 
 Implementações de Tipos de Dados Abstratos aprendidos durante a disciplina
@@ -12,3 +12,4 @@ Implementações de Tipos de Dados Abstratos aprendidos durante a disciplina
 | Vetor |Array e Lista Duplamente encadeada|Acesso por posição(rank)|
 | Sequência |Lista Duplamente encadeada|União de Lista/Vetor.|
 | Árvore Binária de Pesquisa (ABP) |Estrutura Dinâmica de Dados baseada em Nós Autoreferenciados|Estrutura hierárquica(Pai,filhoEsquedo e FilhoDireito)|
+|Heap min com fila de prioridade|Array|Árvore binária|
